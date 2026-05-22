@@ -1,12 +1,6 @@
-'use client';
+import type { CardType } from './ui/CardStack';
 
-import { useState } from 'react';
-import { BottomBar } from './ui/BottomBar';
-import { CardStack } from './ui/CardStack';
-import { TopBar } from './ui/TopBar';
-import { CardType } from './ui/CardStack';
-
-const CARDS: CardType[] = [
+export const whereToGoCards: CardType[] = [
   {
     id: 1,
     title: "Duck's Lake",
@@ -47,40 +41,3 @@ const CARDS: CardType[] = [
     ],
   },
 ];
-
-export default function Page() {
-  const [cards, setCards] = useState<CardType[]>(CARDS);
-
-  const handleSwipe = () => {
-    setCards((prev) => {
-      const [first, ...rest] = prev;
-      return [...rest, first];
-    });
-  };
-
-  return (
-    <main
-      className='h-dvh overflow-hidden transition-colors duration-700'
-      style={{ background: cards[0].bg }}
-    >
-      <div className='pointer-events-none absolute inset-0 overflow-hidden'>
-        <div className='absolute left-[-20%] top-[-10%] h-80 w-80 rounded-full bg-white/5 blur-3xl' />
-        <div className='absolute bottom-[-20%] right-[-10%] h-64 w-64 rounded-full bg-emerald-300/10 blur-3xl' />
-      </div>
-
-      <div className='relative mx-auto flex h-full w-full max-w-107.5 flex-col px-5 pt-12 pb-5'>
-        <div className='relative z-200 shrink-0'>
-          <TopBar />
-        </div>
-
-        <div className='relative z-10 min-h-0 flex-1 overflow-hidden py-4'>
-          <CardStack cards={cards} currentIndex={0} onSwipe={handleSwipe} />
-        </div>
-
-        <div className='relative z-200 shrink-0'>
-          <BottomBar />
-        </div>
-      </div>
-    </main>
-  );
-}

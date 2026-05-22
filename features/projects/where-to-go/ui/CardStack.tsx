@@ -1,15 +1,15 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { motion, PanInfo, useMotionValue, useTransform } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { motion, type PanInfo, useMotionValue, useTransform } from 'framer-motion';
 import { Star } from 'lucide-react';
+import Image from 'next/image';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   type CarouselApi,
 } from '@/components/ui/carousel';
-import Image from 'next/image';
 
 export type CardType = {
   id: number;
@@ -31,11 +31,13 @@ export function CardStack({ cards, currentIndex, onSwipe }: CardStackProps) {
   return (
     <section className='h-full'>
       <div className='relative h-full shrink-0'>
-        {cards.map((card, i) => {
-          if (i < currentIndex) return null;
+        {cards.map((card, index) => {
+          if (index < currentIndex) {
+            return null;
+          }
 
-          const offset = i - currentIndex;
-          const active = i === currentIndex;
+          const offset = index - currentIndex;
+          const active = index === currentIndex;
 
           return (
             <PlaceCard
@@ -65,21 +67,26 @@ function PlaceCard({ card, active, offset, onSwipe }: PlaceCardProps) {
 
   const y = useMotionValue(0);
   const rotate = useTransform(y, [-300, 300], [-7, 7]);
-  const opacity = useTransform(y, [0, 260], [1, 0]);
+  const opacity = useTransform(y, [0, 260], [1, 0.2]);
   const scale = 1 - offset * 0.04;
   const rotateZ = offset * 2;
-  const translateX = 0;
   const translateY = offset * -20;
 
-  // Sync active carousel slides
   useEffect(() => {
-    if (!api) return;
+    if (!api) {
+      return;
+    }
 
-    setCurrent(api.selectedScrollSnap());
-
-    api.on('select', () => {
+    const handleSelect = () => {
       setCurrent(api.selectedScrollSnap());
-    });
+    };
+
+    queueMicrotask(handleSelect);
+    api.on('select', handleSelect);
+
+    return () => {
+      api.off('select', handleSelect);
+    };
   }, [api]);
 
   const handleDragEnd = (
@@ -93,26 +100,23 @@ function PlaceCard({ card, active, offset, onSwipe }: PlaceCardProps) {
 
   return (
     <motion.div
-      className='absolute inset-0 rounded-3xl shadow-2xl cursor-grab  '
+      className='absolute inset-0 cursor-grab rounded-3xl shadow-2xl'
       style={{
         background: card.bg,
         zIndex: 100 - offset,
         scale,
         y: active ? y : translateY,
-        x: active ? 0 : translateX,
         rotate: active ? rotate : rotateZ,
-        // opacity,
+        opacity: active ? opacity : 1,
       }}
       initial={{
         y: active ? 0 : translateY,
-        x: 0,
         rotate: active ? 0 : rotateZ,
         scale,
         opacity: 1,
       }}
       animate={{
         y: active ? 0 : translateY,
-        x: active ? 0 : translateX,
         rotate: active ? 0 : rotateZ,
       }}
       transition={{
@@ -125,15 +129,13 @@ function PlaceCard({ card, active, offset, onSwipe }: PlaceCardProps) {
       dragElastic={0.3}
       onDragEnd={active ? handleDragEnd : undefined}
     >
-      {/* Header */}
       <div className='px-6 pt-8 text-center text-white'>
-        <h2 className='text-[clamp(1.75rem,8vw,3rem)] font-semibold leading-tight tracking-tighter'>
+        <h2 className='text-[clamp(1.75rem,8vw,3rem)] font-semibold leading-tight'>
           {card.title}
         </h2>
         <p className='mt-1 text-base text-white/55'>{card.location}</p>
       </div>
 
-      {/* Image Area */}
       <div className='absolute inset-x-2 bottom-2 top-36 overflow-hidden'>
         <Carousel
           setApi={setApi}
@@ -145,23 +147,21 @@ function PlaceCard({ card, active, offset, onSwipe }: PlaceCardProps) {
         >
           <CarouselContent
             className='h-full'
-            onPointerDown={(e) => e.stopPropagation()}
+            onPointerDown={(event) => event.stopPropagation()}
           >
             {card.images.map((image, index) => (
               <CarouselItem key={index} className='basis-full'>
-                <div className='relative h-[calc(100vh-18rem)]  overflow-hidden rounded-3xl'>
+                <div className='relative h-[calc(100vh-18rem)] overflow-hidden rounded-3xl'>
                   <Image
                     src={image}
-                    alt={`${card.title}-${index}`}
+                    alt={`${card.title}-${index + 1}`}
                     fill
                     sizes='(max-width: 768px) 100vw, 420px'
                     className='object-cover'
                     priority={index === 0}
                   />
-                  {/* Overlay */}
                   <div className='absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/20' />
-                  {/* Pills */}
-                  <div className='absolute left-4 right-4 top-4 flex items-center justify-between'>
+                  <div className='absolute left-4 right-4 top-4 flex items-center justify-between gap-4'>
                     <div className='rounded-xl border border-white/15 bg-white/10 px-2 py-1 text-sm text-white backdrop-blur-xl'>
                       {card.type}
                     </div>
@@ -174,16 +174,17 @@ function PlaceCard({ card, active, offset, onSwipe }: PlaceCardProps) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          {/* Dynamic Pagination Indicators */}
-          <div className='absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 pointer-events-none'>
+
+          <div className='pointer-events-none absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2'>
             {card.images.map((_, index) => (
               <button
                 key={index}
-                onClick={(e) => {
-                  e.stopPropagation();
+                type='button'
+                onClick={(event) => {
+                  event.stopPropagation();
                   api?.scrollTo(index);
                 }}
-                className={`h-1.5 transition-all duration-300 rounded-full pointer-events-auto cursor-pointer ${
+                className={`pointer-events-auto h-1.5 cursor-pointer rounded-full transition-all duration-300 ${
                   index === current
                     ? 'w-8 bg-white'
                     : 'w-1.5 bg-white/50 hover:bg-white/70'

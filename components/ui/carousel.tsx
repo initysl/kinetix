@@ -7,8 +7,7 @@ import useEmblaCarousel, {
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -96,12 +95,15 @@ function Carousel({
 
   React.useEffect(() => {
     if (!api) return
-    onSelect(api)
-    api.on("reInit", onSelect)
-    api.on("select", onSelect)
+    const updateSelection = () => onSelect(api)
+
+    queueMicrotask(updateSelection)
+    api.on("reInit", updateSelection)
+    api.on("select", updateSelection)
 
     return () => {
-      api?.off("select", onSelect)
+      api.off("reInit", updateSelection)
+      api.off("select", updateSelection)
     }
   }, [api, onSelect])
 
@@ -196,7 +198,7 @@ function CarouselPrevious({
       onClick={scrollPrev}
       {...props}
     >
-      <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} />
+      <ChevronLeftIcon />
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -226,7 +228,7 @@ function CarouselNext({
       onClick={scrollNext}
       {...props}
     >
-      <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
+      <ChevronRightIcon />
       <span className="sr-only">Next slide</span>
     </Button>
   )
