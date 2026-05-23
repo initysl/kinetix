@@ -38,7 +38,7 @@ function ProjectPreview({ preview }: { preview: Preview }) {
       priority
       sizes='(max-width: 768px) 100vw, 50vw'
       unoptimized
-      className='object-cover transition duration-700 group-hover:scale-[1.02]'
+      className='object-cover transition duration-700 group-hover:scale-[1.02] overflow-hidden'
     />
   );
 }
@@ -80,20 +80,10 @@ export function ProjectGalleryPage() {
 
         <section className='grid gap-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]'>
           <div className='group relative min-h-96 overflow-hidden rounded-[2rem] border border-black/8 bg-black text-white'>
-            {/* Full card clickable overlay */}
-            <Link
-              href={`/projects/${featuredProject.slug}`}
-              aria-label={`View ${featuredProject.title}`}
-              className='absolute inset-0 z-10'
-            />
-
             {/* Media */}
             <div className='absolute inset-0'>
               <ProjectPreview preview={featuredProject.preview} />
             </div>
-
-            {/* Gradient overlay */}
-            <div className='absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/72' />
 
             {/* Main content */}
             <div className='relative z-20 flex h-full flex-col justify-end p-6 sm:p-8'>
