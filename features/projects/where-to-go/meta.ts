@@ -6,7 +6,7 @@ export const whereToGoProjectMeta = {
     'A swipe-first destination concept with stacked cards, immersive imagery, and tactile motion.',
   description:
     'An immersive travel discovery interface built around vertical swipe gestures, layered place cards, and a mobile-first detail surface.',
-  tags: ['Motion', 'Mobile', 'Cards'],
+  tags: ['Motion', 'Cards'],
   accent: '#17342F',
   preview: {
     kind: 'video',
@@ -18,4 +18,5 @@ export const whereToGoProjectMeta = {
     { label: 'Focus', value: 'Motion' },
     { label: 'Route', value: '/projects/where-to-go' },
   ],
+  credit: 'https://dribbble.com/shots/25468979--Where-To-Go-Cards-Animation',
 } as const;

@@ -8,6 +8,7 @@ export type ProjectPreview = {
 };
 
 export type ProjectRecord = {
+  credit: string;
   slug: string;
   title: string;
   eyebrow: string;
