@@ -36,6 +36,7 @@ function ProjectPreview({
       alt={preview.alt}
       fill
       sizes='(max-width: 768px) 100vw, 50vw'
+      unoptimized
       className='h-full w-full object-cover transition duration-700 group-hover:scale-[1.02]'
     />
   );
@@ -69,7 +70,7 @@ export function ProjectGalleryPage() {
         </header>
 
         <section className='grid gap-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]'>
-          <div className='flex min-h-[24rem] flex-col justify-between rounded-[2rem] border border-black/8 bg-[#161410] px-6 py-6 text-white sm:px-8 sm:py-8'>
+          <div className='flex min-h-96 flex-col justify-between rounded-[2rem] border border-black/8 bg-[#161410] px-6 py-6 text-white sm:px-8 sm:py-8'>
             <div className='space-y-6'>
               <span className='inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 py-1.5 text-sm text-white/72'>
                 <FolderOpen size={16} />
@@ -94,7 +95,9 @@ export function ProjectGalleryPage() {
                   className='rounded-2xl border border-white/10 bg-white/6 px-4 py-4'
                 >
                   <p className='text-sm text-white/55'>{stat.label}</p>
-                  <p className='mt-1 text-sm font-medium text-white'>{stat.value}</p>
+                  <p className='mt-1 text-sm font-medium text-white'>
+                    {stat.value}
+                  </p>
                 </div>
               ))}
             </div>
@@ -102,7 +105,7 @@ export function ProjectGalleryPage() {
 
           <Link
             href={`/projects/${featuredProject.slug}`}
-            className='group relative min-h-[24rem] overflow-hidden rounded-[2rem] border border-black/8 bg-black text-white'
+            className='group relative min-h-96 overflow-hidden rounded-[2rem] border border-black/8 bg-black text-white'
           >
             <ProjectPreview preview={featuredProject.preview} />
             <div className='absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/72' />
@@ -206,7 +209,7 @@ export function ProjectGalleryPage() {
                   </div>
                 </div>
 
-                <div className='relative min-h-[18rem] overflow-hidden bg-[#161410]'>
+                <div className='relative min-h-72 overflow-hidden bg-[#161410]'>
                   <ProjectPreview preview={project.preview} />
                   <div className='absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/55' />
                 </div>

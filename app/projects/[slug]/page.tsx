@@ -2,16 +2,19 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { getProjectBySlug, projects } from '@/content/projects';
+import WhereToGoProject from '@/features/projects/where-to-go';
+import { getProjectBySlug } from '@/content/projects';
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
 };
 
+const projectComponents = {
+  'where-to-go': WhereToGoProject,
+} as const;
+
 export async function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
+  return [];
 }
 
 export async function generateMetadata({
@@ -35,12 +38,12 @@ export async function generateMetadata({
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
+  const ProjectComponent =
+    projectComponents[slug as keyof typeof projectComponents];
 
-  if (!project) {
+  if (!project || !ProjectComponent) {
     notFound();
   }
-
-  const ProjectComponent = project.component;
 
   return (
     <>

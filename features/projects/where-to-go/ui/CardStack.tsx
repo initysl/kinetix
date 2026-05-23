@@ -157,6 +157,7 @@ function PlaceCard({ card, active, offset, onSwipe }: PlaceCardProps) {
                     alt={`${card.title}-${index + 1}`}
                     fill
                     sizes='(max-width: 768px) 100vw, 420px'
+                    unoptimized
                     className='object-cover'
                     priority={index === 0}
                   />

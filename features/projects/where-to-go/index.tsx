@@ -26,7 +26,7 @@ export default function WhereToGoProject() {
       className='h-dvh overflow-hidden transition-colors duration-700'
       style={{ background: cards[0]?.bg ?? '#17342F' }}
     >
-      <div className='relative mx-auto flex h-full w-full max-w-[430px] flex-col px-5 pt-12 pb-5'>
+      <div className='relative mx-auto flex h-full w-full max-w-107.5 flex-col px-5 pt-12 pb-5'>
         <div className='relative z-20 shrink-0'>
           <TopBar />
         </div>

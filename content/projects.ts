@@ -1,5 +1,3 @@
-import type { ComponentType } from 'react';
-import WhereToGoProject from '@/features/projects/where-to-go';
 import { whereToGoProjectMeta } from '@/features/projects/where-to-go/meta';
 
 export type ProjectPreview = {
@@ -22,13 +20,11 @@ export type ProjectRecord = {
     label: string;
     value: string;
   }>;
-  component: ComponentType;
 };
 
 export const projects: ProjectRecord[] = [
   {
     ...whereToGoProjectMeta,
-    component: WhereToGoProject,
   },
 ];
 
