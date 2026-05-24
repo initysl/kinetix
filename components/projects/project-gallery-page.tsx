@@ -2,8 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
-
-import { projects } from '@/content/projects';
+import { projects, getProjectBySlug } from '@/content/projects';
 
 type Preview = {
   kind: 'video' | 'image';
@@ -44,9 +43,10 @@ function ProjectPreview({ preview }: { preview: Preview }) {
 }
 
 export function ProjectGalleryPage() {
-  if (!projects.length) return null;
+  const whereToGo = getProjectBySlug('where-to-go')!;
+  const flowers = getProjectBySlug('flowers')!;
 
-  const [featuredProject] = projects;
+  if (!whereToGo || !flowers) return null;
 
   return (
     <main className='min-h-screen bg-[#f3efe7] text-[#161410]'>
@@ -61,7 +61,6 @@ export function ProjectGalleryPage() {
               alt='Kinetix logo - Star'
               className='shrink-0'
             />
-
             <div>
               <p className='text-sm font-medium text-black/55'>Gallery</p>
               <h1 className='text-lg font-semibold tracking-tight'>Kinetix</h1>
@@ -76,20 +75,19 @@ export function ProjectGalleryPage() {
           </div>
         </header>
 
-        <p className='text-sm font-semibold text-black/50'>Collections</p>
+        <h2 className='font-semibold text-black/50'>Collections</h2>
 
         <section className='grid gap-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]'>
+          {/* Where To Go card */}
           <div className='group relative min-h-96 overflow-hidden rounded-[2rem] border border-black/8 bg-black text-white'>
-            {/* Media */}
             <div className='absolute inset-0'>
-              <ProjectPreview preview={featuredProject.preview} />
+              <ProjectPreview preview={whereToGo.preview} />
             </div>
 
-            {/* Main content */}
             <div className='relative z-20 flex h-full flex-col justify-end p-6 sm:p-8'>
               <div className='space-y-4'>
                 <div className='flex flex-wrap gap-2'>
-                  {featuredProject.tags.map((tag) => (
+                  {whereToGo.tags.map((tag) => (
                     <span
                       key={tag}
                       className='rounded-full border border-white/14 bg-white/10 px-3 py-1 text-xs font-medium text-white/85 backdrop-blur'
@@ -102,22 +100,20 @@ export function ProjectGalleryPage() {
                 <div className='flex items-end justify-between gap-4'>
                   <div className='max-w-xl space-y-2'>
                     <p className='text-sm font-medium text-white/60'>
-                      {featuredProject.eyebrow}
+                      {whereToGo.eyebrow}
                     </p>
-
                     <h3 className='text-3xl font-semibold tracking-tight'>
-                      {featuredProject.title}
+                      {whereToGo.title}
                     </h3>
-
                     <p className='text-sm leading-6 text-white/70'>
-                      {featuredProject.summary}
+                      {whereToGo.summary}
                     </p>
                   </div>
 
                   <span className='relative z-30 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1'>
                     <Link
-                      href={`/projects/${featuredProject.slug}`}
-                      aria-label={`View ${featuredProject.title}`}
+                      href={`/projects/${whereToGo.slug}`}
+                      aria-label={`View ${whereToGo.title}`}
                       className='flex h-full w-full items-center justify-center rounded-full'
                     >
                       <ArrowUpRight size={18} />
@@ -125,17 +121,76 @@ export function ProjectGalleryPage() {
                   </span>
                 </div>
 
-                {/* External credit link */}
                 <div className='relative z-30'>
                   <p className='text-xs font-medium text-white/70'>
                     UI animation prototype by{' '}
                     <a
-                      href={featuredProject.credit}
+                      href={whereToGo.credit}
                       target='_blank'
                       rel='noopener noreferrer'
                       className='underline text-white/40 transition hover:text-white/70'
                     >
                       Mariia Petrovych
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Flowers card */}
+          <div className='group relative min-h-96 overflow-hidden rounded-[2rem] border border-black/8 bg-black text-white'>
+            <div className='absolute inset-0'>
+              <ProjectPreview preview={flowers.preview} />
+            </div>
+
+            <div className='relative z-20 flex h-full flex-col justify-end p-6 sm:p-8'>
+              <div className='space-y-4'>
+                <div className='flex flex-wrap gap-2'>
+                  {flowers.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className='rounded-full border border-white/14 bg-white/10 px-3 py-1 text-xs font-medium text-white/85 backdrop-blur'
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className='flex items-end justify-between gap-4'>
+                  <div className='max-w-xl space-y-2'>
+                    <p className='text-sm font-medium text-white/60'>
+                      {flowers.eyebrow}
+                    </p>
+                    <h3 className='text-3xl font-semibold tracking-tight'>
+                      {flowers.title}
+                    </h3>
+                    <p className='text-sm leading-6 text-white/70'>
+                      {flowers.summary}
+                    </p>
+                  </div>
+
+                  <span className='relative z-30 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1'>
+                    <Link
+                      href={`/projects/${flowers.slug}`}
+                      aria-label={`View ${flowers.title}`}
+                      className='flex h-full w-full items-center justify-center rounded-full'
+                    >
+                      <ArrowUpRight size={18} />
+                    </Link>
+                  </span>
+                </div>
+
+                <div className='relative z-30'>
+                  <p className='text-xs font-medium text-white/70'>
+                    UI animation prototype by{' '}
+                    <a
+                      href={flowers.credit}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='underline text-white/40 transition hover:text-white/70'
+                    >
+                      {flowers.title}
                     </a>
                   </p>
                 </div>

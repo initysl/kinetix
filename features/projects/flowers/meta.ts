@@ -1,8 +1,8 @@
 import type { ProjectRecord } from '@/content/types';
 
-export const whereToGoProjectMeta: ProjectRecord = {
-  slug: 'where-to-go',
-  title: 'Where To Go',
+export const flowersMeta: ProjectRecord = {
+  slug: 'flowers',
+  title: 'Flowers',
   eyebrow: 'Travel Discovery',
   summary:
     'A swipe-first destination concept with stacked cards, immersive imagery, and tactile motion.',
@@ -12,13 +12,13 @@ export const whereToGoProjectMeta: ProjectRecord = {
   accent: '#17342F',
   preview: {
     kind: 'video',
-    src: '/projects/where-to-go/wtg.mp4',
-    alt: 'Preview of the Where To Go travel discovery interface.',
+    src: '/projects/flowers/sidenav.mp4',
+    alt: 'Preview of the Flowers interface.',
   },
   stats: [
     { label: 'Surface', value: 'Mobile' },
     { label: 'Focus', value: 'Motion' },
-    { label: 'Route', value: '/projects/where-to-go' },
+    { label: 'Route', value: '/projects/flowers' },
   ],
-  credit: 'https://dribbble.com/shots/25468979--Where-To-Go-Cards-Animation',
+  credit: 'https://youtube.com/shorts/s8TB6Dpq4jQ?si=NLuJOPo2ihJgVOYw',
 };

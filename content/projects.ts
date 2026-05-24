@@ -1,34 +1,11 @@
 import { whereToGoProjectMeta } from '@/features/projects/where-to-go/meta';
+import { flowersMeta } from '@/features/projects/flowers/meta';
+import type { ProjectRecord } from './types';
 
-export type ProjectPreview = {
-  kind: 'video' | 'image';
-  src: string;
-  alt: string;
-  poster?: string;
-};
+export type { ProjectPreview, ProjectRecord } from './types';
 
-export type ProjectRecord = {
-  credit: string;
-  slug: string;
-  title: string;
-  eyebrow: string;
-  summary: string;
-  description: string;
-  tags: ReadonlyArray<string>;
-  accent: string;
-  preview: ProjectPreview;
-  stats: ReadonlyArray<{
-    label: string;
-    value: string;
-  }>;
-};
+export const projects: ProjectRecord[] = [whereToGoProjectMeta, flowersMeta];
 
-export const projects: ProjectRecord[] = [
-  {
-    ...whereToGoProjectMeta,
-  },
-];
-
-export function getProjectBySlug(slug: string) {
-  return projects.find((project) => project.slug === slug);
+export function getProjectBySlug(slug: string): ProjectRecord | undefined {
+  return projects.find((p) => p.slug === slug);
 }
