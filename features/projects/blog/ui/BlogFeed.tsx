@@ -13,15 +13,13 @@ interface BlogFeedProps {
 }
 
 export default function BlogFeed({
-  onSelectJane,
   posts,
   onToggleLike,
-  janeAvatar,
   selectedAuthorName,
   onSelectAuthor,
 }: BlogFeedProps) {
   return (
-    <div className='flex flex-col h-full max-w-4xl mx-auto bg-slate-50 overflow-y-auto pb-8'>
+    <div className='flex flex-col h-full max-w-3xl mx-auto bg-slate-50 overflow-y-auto pb-8'>
       {/* Top Sticky Header */}
       <div className='sticky top-0 z-10 w-full h-14 bg-white border-b border-slate-100 flex items-center justify-between px-5 select-none shrink-0 shadow-[0_1px_3px_rgba(0,0,0,0.02)]'>
         {/* Animated Menu Icon container with layoutId matching Profile back action */}
