@@ -1,7 +1,15 @@
 import { motion } from 'framer-motion';
-import { ArrowLeft, Settings, Check, Plus, UserPlus } from 'lucide-react';
+import { ArrowLeft, Settings, Check, Plus } from 'lucide-react';
 import { StoryCard } from '../types';
 import CardDeck from './CardDeck';
+
+interface AuthorProfile {
+  name: string;
+  avatar: string;
+  followers: string;
+  storiesCount: string;
+  stories: StoryCard[];
+}
 
 interface ProfileViewProps {
   onBack: () => void;
@@ -9,7 +17,7 @@ interface ProfileViewProps {
   onToggleFollow: () => void;
   stories: StoryCard[];
   onCycleStories: () => void;
-  janeAvatar: string;
+  selectedAuthor: AuthorProfile;
   key?: string;
 }
 
@@ -19,7 +27,7 @@ export default function ProfileView({
   onToggleFollow,
   stories,
   onCycleStories,
-  janeAvatar,
+  selectedAuthor,
 }: ProfileViewProps) {
   // Simple satellite metrics that pop out from behind Jane's avatar
   const statsBubbles = [
@@ -49,12 +57,48 @@ export default function ProfileView({
     },
   ];
 
+  // Map author's identity to custom colors
+  const linearClass =
+    selectedAuthor.name === 'Alise Bradley'
+      ? 'from-[#ea5d71] to-[#f472b6]'
+      : selectedAuthor.name === 'Merlin Sammy'
+        ? 'from-[#f59e0b] to-[#ea5d71]'
+        : 'from-[#31b3a5] to-[#40bdae]';
+
+  const shadowColor =
+    selectedAuthor.name === 'Alise Bradley'
+      ? 'shadow-[0_15px_30px_-5px_rgba(234,93,113,0.25)]'
+      : selectedAuthor.name === 'Merlin Sammy'
+        ? 'shadow-[0_15px_30px_-5px_rgba(245,158,11,0.25)]'
+        : 'shadow-[0_15px_30px_-5px_rgba(49,179,165,0.25)]';
+
+  const glowBackdrop =
+    selectedAuthor.name === 'Alise Bradley'
+      ? 'bg-rose-400/20'
+      : selectedAuthor.name === 'Merlin Sammy'
+        ? 'bg-amber-400/20'
+        : 'bg-teal-400/20';
+
+  const highlightTextColor =
+    selectedAuthor.name === 'Alise Bradley'
+      ? 'text-[#ea5d71]'
+      : selectedAuthor.name === 'Merlin Sammy'
+        ? 'text-[#ea5d71]'
+        : 'text-[#31b3a5]';
+
+  const activeBtnBg =
+    selectedAuthor.name === 'Alise Bradley'
+      ? '#ea5d71'
+      : selectedAuthor.name === 'Merlin Sammy'
+        ? '#ea5d71'
+        : '#3fb5a3';
+
   return (
     <div className='flex flex-col h-full bg-white overflow-hidden relative'>
       {/* Morphing Header Banner serving as background layout wrapper */}
       <motion.div
         layoutId='profile-header-bg'
-        className='w-full h-64 rounded-b-[48px] bg-linear-to-r from-[#31b3a5] to-[#40bdae] relative flex flex-col justify-between p-5 pb-8 overflow-hidden z-20 shadow-[0_15px_30px_-5px_rgba(49,179,165,0.25)]'
+        className={`w-full h-64 rounded-b-[48px] bg-linear-to-r ${linearClass} ${shadowColor} relative flex flex-col justify-between p-5 pb-8 overflow-hidden z-20`}
         transition={{
           type: 'spring',
           stiffness: 280,
@@ -74,15 +118,20 @@ export default function ProfileView({
 
         {/* Floating Top Navigation actions */}
         <div className='w-full flex items-center justify-between z-10 pt-2 select-none'>
-          <button
-            onClick={onBack}
-            className='p-1.5 text-white/90 hover:text-white hover:bg-white/10 rounded-xl transition-colors active:scale-90 cursor-pointer'
-          >
-            <ArrowLeft
-              className='w-5 h-5 pointer-events-none'
-              strokeWidth={2.5}
+          {/* Back button container sharing layoutId with Blog Menu icon */}
+          <div className='relative w-8 h-8 flex items-center justify-center'>
+            <motion.div
+              layoutId='shared-nav-circle'
+              className='absolute inset-0 bg-white/20 backdrop-blur-md rounded-full'
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
             />
-          </button>
+            <button
+              onClick={onBack}
+              className='p-1 px-1.5 text-white hover:text-white/80 active:scale-95 transition-transform rounded-full cursor-pointer relative z-30'
+            >
+              <ArrowLeft className='w-5 h-5' strokeWidth={2.5} />
+            </button>
+          </div>
 
           <span className='font-display font-black text-white tracking-widest text-[14px]'>
             PROFILE
@@ -116,7 +165,9 @@ export default function ProfileView({
             ))}
 
             {/* Glowing circular backdrop */}
-            <div className='absolute inset-0 bg-teal-400/20 rounded-full blur-md animate-pulse'></div>
+            <div
+              className={`absolute inset-0 ${glowBackdrop} rounded-full blur-md animate-pulse`}
+            ></div>
 
             {/* Main morphing avatar image frame */}
             <motion.div
@@ -131,8 +182,8 @@ export default function ProfileView({
               <motion.img
                 layoutId='profile-avatar-img'
                 referrerPolicy='no-referrer'
-                src={janeAvatar}
-                alt='Jane Smith'
+                src={selectedAuthor.avatar}
+                alt={selectedAuthor.name}
                 className='w-full h-full object-cover'
                 transition={{
                   type: 'spring',
@@ -160,11 +211,12 @@ export default function ProfileView({
         {/* Name and Stats */}
         <div className='text-center'>
           <h2 className='text-xl font-bold text-slate-800 tracking-wider font-display uppercase'>
-            Jane Smith
+            {selectedAuthor.name}
           </h2>
           <p className='text-[11px] font-semibold text-slate-400 tracking-wide mt-1 uppercase'>
-            127 stories <span className='mx-1.5 text-slate-300'>•</span> 325
-            followers
+            {selectedAuthor.storiesCount}{' '}
+            <span className='mx-1.5 text-slate-300'>•</span>{' '}
+            {selectedAuthor.followers}
           </p>
         </div>
 
@@ -177,11 +229,11 @@ export default function ProfileView({
             <motion.div
               initial={false}
               animate={{
-                backgroundColor: isFollowing ? '#3fb5a3' : '#ffffff',
-                borderColor: isFollowing ? '#3fb5a3' : '#e2e8f0',
-                color: isFollowing ? '#ffffff' : '#31b3a5',
+                backgroundColor: isFollowing ? activeBtnBg : '#ffffff',
+                borderColor: isFollowing ? activeBtnBg : '#e2e8f0',
+                color: isFollowing ? '#ffffff' : activeBtnBg,
                 boxShadow: isFollowing
-                  ? '0 4px 14px 0 rgba(63, 181, 163, 0.4)'
+                  ? '0 4px 14px 0 rgba(0, 0, 0, 0.15)'
                   : '0 4px 10px 0 rgba(0, 0, 0, 0.04)',
               }}
               className='px-8 py-2 rounded-full border-2 text-[10px] uppercase font-black tracking-widest flex items-center justify-center gap-1.5 min-w-37.5 h-8'
