@@ -1,46 +1,57 @@
+'use client';
+
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, PanInfo } from 'framer-motion';
 import { SideNavigation } from './ui/SideNavigation';
 import { StoreFront } from './ui/StoreFront';
+
+const springConfig = { type: 'spring', stiffness: 280, damping: 32 } as const;
 
 export default function Flowers() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Smooth toggle handler
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const closeMenu = () => setIsOpen(false);
+
+  // Swipe to close
+  const handleDragEnd = (_: PointerEvent, info: PanInfo) => {
+    if (info.offset.x < -60 && info.velocity.x < -100) {
+      closeMenu();
+    }
+  };
 
   return (
-    // Outer Container - Centers for desktop, full bleed on mobile
-    <div className='min-h-screen bg-gray-50 flex items-center justify-center sm:p-8'>
-      {/* 
-        Mobile Device Frame Constraint
-        In a Next.js environment, this would define your global layout shell on mobile, 
-        and you could adapt the width constraint for desktop via media queries.
-      */}
-      <div className='w-full max-w-md h-[100dvh] sm:h-[850px] relative overflow-hidden sm:rounded-[36px] sm:shadow-2xl sm:border-[4px] border-slate-900 bg-[#214F3B]'>
-        {/* Navigation Drawer (Background Layer) */}
+    <div className='min-h-screen bg-[#214F3B] flex items-center justify-center'>
+      <div className='relative w-full h-dvh sm:shadow-[0_32px_80px_rgba(0,0,0,0.45)] overflow-hidden bg-[#214F3B]'>
+        {/* Side nav — sits behind the storefront */}
         <SideNavigation isOpen={isOpen} />
 
-        {/* Foreground App View (The Scalable 'Card') */}
+        {/* Storefront panel */}
         <motion.div
+          drag={isOpen ? 'x' : false}
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={{ left: 0.2, right: 0 }}
+          onDragEnd={handleDragEnd}
           animate={{
-            scale: isOpen ? 0.85 : 1,
-            x: isOpen ? '65%' : '0%',
-            borderRadius: isOpen ? '32px' : '0px', // On mobile '0px', on constrained desktop shell we adapt later
+            scale: isOpen ? 0.84 : 1,
+            x: isOpen ? '62%' : '0%',
+            borderRadius: isOpen ? '32px' : '0px',
           }}
-          transition={{ type: 'spring', bounce: 0, duration: 0.45 }}
-          className='absolute inset-0 z-20 bg-[#F9FAFB] shadow-[-10px_0_30px_rgba(0,0,0,0.15)] overflow-y-auto flex flex-col'
+          transition={springConfig}
+          className='absolute inset-0 z-20 bg-[#F9FAFB] overflow-y-auto flex flex-col'
           style={{
-            // To ensure the border radius adapts cleanly when placed over the white bg
-            borderBottomLeftRadius: isOpen ? '32px' : '0px',
-            borderTopLeftRadius: isOpen ? '32px' : '0px',
+            boxShadow: '-12px 0 40px rgba(0,0,0,0.18)',
           }}
         >
-          {/* Transparent Overlay to Catch Clicks when Menu is Open */}
+          {/* Tap overlay — closes menu when tapping the peeking storefront */}
           {isOpen && (
-            <div
-              className='absolute inset-0 z-50 bg-black/5'
-              onClick={() => setIsOpen(false)}
+            <motion.div
+              key='overlay'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className='absolute inset-0 z-50 cursor-pointer'
+              onClick={closeMenu}
             />
           )}
 
