@@ -1,6 +1,7 @@
 import type { ProjectRecord } from '@/content/types';
 
 export const flowersMeta: ProjectRecord = {
+  id: 2,
   slug: 'flowers',
   title: 'Flowers',
   eyebrow: 'Travel Discovery',
