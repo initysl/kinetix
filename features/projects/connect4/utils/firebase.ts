@@ -1,18 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInAnonymously } from 'firebase/auth';
-import {
-  getFirestore,
-  doc,
-  getDocFromServer,
-  collection,
-  setDoc,
-  getDoc,
-  updateDoc,
-  onSnapshot,
-  serverTimestamp,
-  deleteDoc,
-} from 'firebase/firestore';
-import firebaseConfig from '../firebase-applet-config.json';
+import { getFirestore, doc, getDocFromServer } from 'firebase/firestore';
+import { firebaseConfig } from '../../../../lib/firebase';
 import { BoardState, Player } from '../types';
 
 // Initialize Firebase
