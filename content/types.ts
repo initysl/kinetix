@@ -6,6 +6,7 @@ export type ProjectPreview = {
 };
 
 export type ProjectRecord = {
+  id: number | null | undefined;
   credit: string;
   slug: string;
   title: string;

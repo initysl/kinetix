@@ -54,7 +54,6 @@ export default function CardDeck({ stories, onCycleStories }: CardDeckProps) {
                 : 'blur-[1px]';
             const rotateConstant = isTop ? 0 : isSecond ? 1.5 : -2;
 
-            // Framer motion animation properties
             return (
               <motion.div
                 key={story.id}

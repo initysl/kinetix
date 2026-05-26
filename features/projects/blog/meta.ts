@@ -1,6 +1,7 @@
 import type { ProjectRecord } from '@/content/types';
 
 export const blogMeta: ProjectRecord = {
+  id: 3,
   slug: 'blog',
   title: 'Blog',
   eyebrow: 'Travel Discovery',

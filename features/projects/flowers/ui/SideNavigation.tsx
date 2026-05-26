@@ -73,7 +73,7 @@ const profileVariants: Variants = {
 
 export function SideNavigation({ isOpen }: { isOpen: boolean }) {
   return (
-    <div className='absolute inset-0 z-10 w-[72%] max-w-xs h-full flex flex-col overflow-hidden'>
+    <div className='absolute inset-0 z-10  h-full flex flex-col overflow-hidden'>
       <AnimatePresence>
         {isOpen && (
           <motion.div

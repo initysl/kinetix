@@ -1,9 +1,9 @@
 import type { ProjectRecord } from '@/content/types';
 
-export const whereToGoProjectMeta: ProjectRecord = {
-  id: 1,
-  slug: 'where-to-go',
-  title: 'Where To Go',
+export const connect4Meta: ProjectRecord = {
+  id: 4,
+  slug: 'connect4',
+  title: 'Connect4',
   eyebrow: 'Travel Discovery',
   summary:
     'A swipe-first destination concept with stacked cards, immersive imagery, and tactile motion.',
@@ -12,14 +12,14 @@ export const whereToGoProjectMeta: ProjectRecord = {
   tags: ['Motion', 'Cards'],
   accent: '#17342F',
   preview: {
-    kind: 'video',
-    src: '/projects/where-to-go/wtg.mp4',
-    alt: 'Preview of the Where To Go travel discovery interface.',
+    kind: 'image',
+    src: '/projects/connect4/connect4.jpg',
+    alt: 'Preview of the Flowers interface.',
   },
   stats: [
     { label: 'Surface', value: 'Mobile' },
     { label: 'Focus', value: 'Motion' },
-    { label: 'Route', value: '/projects/where-to-go' },
+    { label: 'Route', value: '/projects/connect4' },
   ],
-  credit: 'https://dribbble.com/shots/25468979--Where-To-Go-Cards-Animation',
+  credit: 'https://youtube.com/shorts/s8TB6Dpq4jQ?si=NLuJOPo2ihJgVOYw',
 };

@@ -1,4 +1,4 @@
-import type { CardType } from './ui/CardStack';
+import type { CardType } from './ui/CardDeck';
 
 export const whereToGoCards: CardType[] = [
   {

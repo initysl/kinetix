@@ -7,7 +7,7 @@ import { StoreFront } from './ui/StoreFront';
 
 const springConfig = { type: 'spring', stiffness: 280, damping: 32 } as const;
 
-export default function Flowers() {
+export default function App() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
@@ -23,10 +23,7 @@ export default function Flowers() {
   return (
     <div className='min-h-screen bg-[#214F3B] flex items-center justify-center'>
       <div className='relative w-full h-dvh sm:shadow-[0_32px_80px_rgba(0,0,0,0.45)] overflow-hidden bg-[#214F3B]'>
-        {/* Side nav — sits behind the storefront */}
         <SideNavigation isOpen={isOpen} />
-
-        {/* Storefront panel */}
         <motion.div
           drag={isOpen ? 'x' : false}
           dragConstraints={{ left: 0, right: 0 }}
@@ -43,7 +40,6 @@ export default function Flowers() {
             boxShadow: '-12px 0 40px rgba(0,0,0,0.18)',
           }}
         >
-          {/* Tap overlay — closes menu when tapping the peeking storefront */}
           {isOpen && (
             <motion.div
               key='overlay'

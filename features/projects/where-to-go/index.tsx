@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { whereToGoCards } from './data';
 import { BottomBar } from './ui/BottomBar';
-import { CardStack } from './ui/CardStack';
+import { CardDeck } from './ui/CardDeck';
 import { TopBar } from './ui/TopBar';
-import type { CardType } from './ui/CardStack';
+import type { CardType } from './ui/CardDeck';
 
-export default function WhereToGoProject() {
+export default function App() {
   const [cards, setCards] = useState<CardType[]>(whereToGoCards);
 
   const handleSwipe = () => {
@@ -32,7 +32,7 @@ export default function WhereToGoProject() {
         </div>
 
         <div className='relative z-10 flex-1 py-4'>
-          <CardStack cards={cards} currentIndex={0} onSwipe={handleSwipe} />
+          <CardDeck cards={cards} currentIndex={0} onSwipe={handleSwipe} />
         </div>
 
         <div className='relative z-20 shrink-0'>

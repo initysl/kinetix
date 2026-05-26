@@ -1,14 +1,21 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, type PanInfo, useMotionValue, useTransform } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  type PanInfo,
+  useMotionValue,
+  useTransform,
+} from 'framer-motion';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
+
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
-  type CarouselApi,
 } from '@/components/ui/carousel';
 
 export type CardType = {
@@ -21,34 +28,36 @@ export type CardType = {
   images: string[];
 };
 
-type CardStackProps = {
+type CardDeckProps = {
   cards: CardType[];
   currentIndex: number;
   onSwipe: () => void;
 };
 
-export function CardStack({ cards, currentIndex, onSwipe }: CardStackProps) {
+export function CardDeck({ cards, currentIndex, onSwipe }: CardDeckProps) {
   return (
-    <section className='h-full'>
-      <div className='relative h-full shrink-0'>
-        {cards.map((card, index) => {
-          if (index < currentIndex) {
-            return null;
-          }
+    <section className='h-full w-full'>
+      <div className='relative h-full w-full'>
+        <AnimatePresence mode='popLayout'>
+          {cards.map((card, index) => {
+            if (index < currentIndex) {
+              return null;
+            }
 
-          const offset = index - currentIndex;
-          const active = index === currentIndex;
+            const offset = index - currentIndex;
+            const active = index === currentIndex;
 
-          return (
-            <PlaceCard
-              key={card.id}
-              card={card}
-              active={active}
-              offset={offset}
-              onSwipe={onSwipe}
-            />
-          );
-        })}
+            return (
+              <PlaceCard
+                key={card.id}
+                card={card}
+                active={active}
+                offset={offset}
+                onCycleStories={onSwipe}
+              />
+            );
+          })}
+        </AnimatePresence>
       </div>
     </section>
   );
@@ -58,19 +67,26 @@ type PlaceCardProps = {
   card: CardType;
   active: boolean;
   offset: number;
-  onSwipe: () => void;
+  onCycleStories: () => void;
 };
 
-function PlaceCard({ card, active, offset, onSwipe }: PlaceCardProps) {
+function PlaceCard({ card, active, offset, onCycleStories }: PlaceCardProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
+  const [exitY, setExitY] = useState<number | null>(null);
   const y = useMotionValue(0);
-  const rotate = useTransform(y, [-300, 300], [-7, 7]);
-  const opacity = useTransform(y, [0, 260], [1, 0.2]);
+  const rotate = useTransform(y, [-300, 0, 300], [-6, 0, 6]);
+
+  const opacity = useTransform(
+    y,
+    [-400, -200, 0, 200, 400],
+    [0, 0.4, 1, 0.4, 0],
+  );
+
   const scale = 1 - offset * 0.04;
-  const rotateZ = offset * 2;
-  const translateY = offset * -20;
+  const stackY = offset * -20;
+  const stackRotate = offset * 1.5;
 
   useEffect(() => {
     if (!api) {
@@ -81,7 +97,8 @@ function PlaceCard({ card, active, offset, onSwipe }: PlaceCardProps) {
       setCurrent(api.selectedScrollSnap());
     };
 
-    queueMicrotask(handleSelect);
+    handleSelect();
+
     api.on('select', handleSelect);
 
     return () => {
@@ -93,50 +110,81 @@ function PlaceCard({ card, active, offset, onSwipe }: PlaceCardProps) {
     _: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo,
   ) => {
-    if (info.offset.y > 180) {
-      onSwipe();
+    const threshold = 140;
+
+    if (info.offset.y > threshold) {
+      setExitY(800);
+
+      setTimeout(() => {
+        onCycleStories();
+      }, 260);
+
+      return;
+    }
+
+    if (info.offset.y < -threshold) {
+      setExitY(-800);
+
+      setTimeout(() => {
+        onCycleStories();
+      }, 260);
     }
   };
 
   return (
     <motion.div
-      className='absolute inset-0 cursor-grab rounded-3xl shadow-2xl'
+      className='absolute inset-0 overflow-hidden rounded-3xl shadow-2xl cursor-grab active:cursor-grabbing'
       style={{
         background: card.bg,
         zIndex: 100 - offset,
         scale,
-        y: active ? y : translateY,
-        rotate: active ? rotate : rotateZ,
         opacity: active ? opacity : 1,
+        y: active ? y : stackY,
+        rotate: active ? rotate : stackRotate,
       }}
       initial={{
-        y: active ? 0 : translateY,
-        rotate: active ? 0 : rotateZ,
-        scale,
-        opacity: 1,
+        opacity: 0,
+        scale: 0.92,
+        y: 80,
       }}
       animate={{
-        y: active ? 0 : translateY,
-        rotate: active ? 0 : rotateZ,
+        opacity: 1,
+        scale,
+        y: stackY,
+        rotate: active ? 0 : stackRotate,
+      }}
+      exit={{
+        y: exitY ?? 0,
+        opacity: 0,
+        scale: 0.82,
+        rotate: exitY && exitY > 0 ? 12 : exitY && exitY < 0 ? -12 : 0,
+        transition: {
+          duration: 0.3,
+          ease: 'easeOut',
+        },
       }}
       transition={{
         type: 'spring',
-        stiffness: 240,
-        damping: 24,
+        stiffness: 340,
+        damping: 20,
       }}
       drag={active ? 'y' : false}
-      dragConstraints={{ top: 0, bottom: 300 }}
-      dragElastic={0.3}
+      dragConstraints={{
+        top: 0,
+        bottom: 0,
+      }}
+      dragElastic={0.2}
       onDragEnd={active ? handleDragEnd : undefined}
     >
       <div className='px-6 pt-8 text-center text-white'>
         <h2 className='text-[clamp(1.75rem,8vw,3rem)] font-semibold leading-tight'>
           {card.title}
         </h2>
-        <p className='mt-1 text-base text-white/55'>{card.location}</p>
+
+        <p className='mt-1 text-base text-white/60'>{card.location}</p>
       </div>
 
-      <div className='absolute inset-x-2 bottom-2 top-36 overflow-hidden'>
+      <div className='absolute inset-x-2 bottom-2 top-36 overflow-hidden rounded-3xl'>
         <Carousel
           setApi={setApi}
           opts={{
@@ -147,7 +195,9 @@ function PlaceCard({ card, active, offset, onSwipe }: PlaceCardProps) {
         >
           <CarouselContent
             className='h-full'
-            onPointerDown={(event) => event.stopPropagation()}
+            onPointerDown={(event) => {
+              event.stopPropagation();
+            }}
           >
             {card.images.map((image, index) => (
               <CarouselItem key={index} className='basis-full'>
@@ -156,18 +206,20 @@ function PlaceCard({ card, active, offset, onSwipe }: PlaceCardProps) {
                     src={image}
                     alt={`${card.title}-${index + 1}`}
                     fill
-                    sizes='(max-width: 768px) 100vw, 420px'
+                    sizes='(max-width:768px) 100vw, 420px'
+                    priority={index === 0}
                     unoptimized
                     className='object-cover'
-                    priority={index === 0}
                   />
-                  <div className='absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/20' />
+                  <div className='absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30' />
                   <div className='absolute left-4 right-4 top-4 flex items-center justify-between gap-4'>
-                    <div className='rounded-xl border border-white/15 bg-white/10 px-2 py-1 text-sm text-white backdrop-blur-xl'>
+                    <div className='rounded-xl border border-white/15 bg-white/10 px-3 py-1 text-sm text-white backdrop-blur-xl'>
                       {card.type}
                     </div>
-                    <div className='flex items-center gap-1 rounded-xl border border-white/15 bg-white/10 px-2 py-1 text-sm text-white backdrop-blur-xl'>
-                      <Star size={18} className='fill-white' />
+
+                    <div className='flex items-center gap-1 rounded-xl border border-white/15 bg-white/10 px-3 py-1 text-sm text-white backdrop-blur-xl'>
+                      <Star size={16} className='fill-white' />
+
                       {card.rating}
                     </div>
                   </div>
@@ -185,7 +237,7 @@ function PlaceCard({ card, active, offset, onSwipe }: PlaceCardProps) {
                   event.stopPropagation();
                   api?.scrollTo(index);
                 }}
-                className={`pointer-events-auto h-1.5 cursor-pointer rounded-full transition-all duration-300 ${
+                className={`pointer-events-auto h-1.5 rounded-full transition-all duration-300 ${
                   index === current
                     ? 'w-8 bg-white'
                     : 'w-1.5 bg-white/50 hover:bg-white/70'
