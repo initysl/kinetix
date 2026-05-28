@@ -14,17 +14,11 @@ export interface AuthorProfile {
 }
 
 export default function App() {
-  // Screen tracker state - 'feed' or 'profile'
   const [currentView, setCurrentView] = useState<'feed' | 'profile'>('feed');
-
-  // High fidelity follow/following subscription check
   const [isFollowing, setIsFollowing] = useState(false);
 
-  // High resolution photographic elements of assets from Unsplash
   const JANE_AVATAR =
     'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop';
-
-  // Dynamic profiles with customized story decks for high fidelity
   const [profiles, setProfiles] = useState<Record<string, AuthorProfile>>({
     'Jane Smith': {
       name: 'Jane Smith',
@@ -120,11 +114,7 @@ export default function App() {
   // Track currently active/selected author for the profile view
   const [selectedAuthorName, setSelectedAuthorName] =
     useState<string>('Jane Smith');
-
-  // Get active selected profile data safely
   const activeProfile = profiles[selectedAuthorName] || profiles['Jane Smith'];
-
-  // Reactive list of general blog posts matching the visual style in the GIF
   const [posts, setPosts] = useState<BlogPost[]>([
     {
       id: 'post-1',

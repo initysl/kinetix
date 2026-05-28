@@ -31,7 +31,7 @@ export default function App() {
           onDragEnd={handleDragEnd}
           animate={{
             scale: isOpen ? 0.84 : 1,
-            x: isOpen ? '62%' : '0%',
+            x: isOpen ? '30%' : '0%',
             borderRadius: isOpen ? '32px' : '0px',
           }}
           transition={springConfig}

@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import WhereToGoProject from '@/features/projects/where-to-go';
-import Flowers from '@/features/projects/flowers';
-import Blog from '@/features/projects/blog';
+import SideBar from '@/features/projects/sidebar';
+import Profile from '@/features/projects/profile';
 import Connect4 from '@/features/projects/connect4';
 import { getProjectBySlug } from '@/content/projects';
 
@@ -14,8 +12,8 @@ type ProjectPageProps = {
 
 const projectComponents = {
   'where-to-go': WhereToGoProject,
-  flowers: Flowers,
-  blog: Blog,
+  sidebar: SideBar,
+  'profile-viewer': Profile,
   connect4: Connect4,
 } as const;
 

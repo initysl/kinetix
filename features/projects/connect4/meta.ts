@@ -4,21 +4,21 @@ export const connect4Meta: ProjectRecord = {
   id: 4,
   slug: 'connect4',
   title: 'Connect4',
-  eyebrow: 'Travel Discovery',
+  eyebrow: 'Game',
   summary:
-    'A swipe-first destination concept with stacked cards, immersive imagery, and tactile motion.',
+    'A tactical, offline-first Connect Four championship board with smart computer AI levels, best-of match series, and active game modifiers.',
   description:
-    'An immersive travel discovery interface built around vertical swipe gestures, layered place cards, and a mobile-first detail surface.',
-  tags: ['Motion', 'Cards'],
-  accent: '#17342F',
+    'A highly polished, tactile, physical-style Connect Four tabletop arena. Features customizable best-of-series formats, smart depth-calculated computer opponents (using a local Minimax engine), complete keyboard accessibility, and dynamic event configurations including Rocky Obstacles, speed Blitz setups, and random Volcanic debris showers.',
+  tags: ['Minimax AI', 'Interactive Loop', 'Tabletop Game'],
+  accent: '#1e1b4b', // Championship deep indigo coordination
   preview: {
     kind: 'image',
     src: '/projects/connect4/connect4.jpg',
-    alt: 'Preview of the Flowers interface.',
+    alt: 'Championship Connect Four board game interface.',
   },
   stats: [
-    { label: 'Surface', value: 'Mobile' },
-    { label: 'Focus', value: 'Motion' },
+    { label: 'Surface', value: 'Responsive Desktop & Mobile' },
+    { label: 'Focus', value: 'Minimax Engine & State Persistence' },
     { label: 'Route', value: '/projects/connect4' },
   ],
   credit: 'https://youtube.com/shorts/s8TB6Dpq4jQ?si=NLuJOPo2ihJgVOYw',
