@@ -949,17 +949,12 @@ export default function GameScreen({
           </div>
 
           {/* Turn Count overlay or Winner Screen Banner overlay */}
-          <div className='w-full relative -mt-3 flex justify-center z-20'>
+          <div className='w-full relative mt-3 flex justify-center z-20'>
             {seriesChampion !== null ? (
-              /* MATCH CHAMPION DECLARED OVERLAY */
               <div
                 id='champion-overlay'
-                className='bg-zinc-950 text-white border-b-8 border-yellow-400 border-x-4 border-t-4 rounded-[32px] p-5 px-8 flex flex-col items-center justify-center w-72 sm:w-80 shadow-2xl text-center'
+                className='text-white rounded-[32px] p-5 px-8 flex flex-col items-center justify-center w-72 sm:w-80 text-center'
               >
-                <span className='text-2xl animate-bounce mb-1'>👑</span>
-                <span className='text-[10px] font-extrabold uppercase tracking-widest text-amber-400 mb-1'>
-                  SERIES CHAMPION
-                </span>
                 <h2
                   id='champion-text'
                   className='text-2xl font-black uppercase text-center mb-4 leading-tight'

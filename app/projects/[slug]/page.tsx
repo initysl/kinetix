@@ -53,7 +53,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <>
-      <div className='pointer-events-none fixed inset-x-0 top-0 z-50 mx-auto flex items-center justify-between p-2 '>
+      {/* <div className='pointer-events-none fixed inset-x-0 top-0 z-50 mx-auto flex items-center justify-between p-2 '>
         <Link
           href='/'
           className='pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/14 bg-black/45 px-4 py-2 text-sm font-medium text-white backdrop-blur-2xl transition hover:bg-black/60'
@@ -65,7 +65,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <div className='pointer-events-auto rounded-full border border-white/14 bg-black/45 px-4 py-2 text-sm font-medium text-white/78 backdrop-blur-xl'>
           {project.title}
         </div>
-      </div>
+      </div> */}
 
       <ProjectComponent />
     </>
