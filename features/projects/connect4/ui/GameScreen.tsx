@@ -1113,7 +1113,7 @@ export default function GameScreen({
       {/* FOOTER TOOL PANEL CONTROLS */}
       <footer
         id='game-tools-bar'
-        className='w-full max-w-5xl mt-6 flex flex-col md:flex-row items-center justify-between gap-6 bg-white text-black border-4 border-black rounded-[32px] p-5 shadow-xl relative z-20'
+        className='w-full max-w-5xl mt-6 flex flex-col md:flex-row items-center justify-between gap-6 bg-white text-black rounded-[32px] p-5 shadow-xl relative z-20'
       >
         {/* Left Side: Controls Description & Key Commands */}
         <div className='flex flex-col gap-1 text-center md:text-left'>
