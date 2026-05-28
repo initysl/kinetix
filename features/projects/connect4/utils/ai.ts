@@ -25,7 +25,7 @@ export function checkWin(board: BoardState): WinningLine | null {
     for (let c = 0; c < COLS - 3; c++) {
       const p = board[r][c];
       if (
-        p !== null &&
+        (p === 1 || p === 2) &&
         p === board[r][c + 1] &&
         p === board[r][c + 2] &&
         p === board[r][c + 3]
@@ -48,7 +48,7 @@ export function checkWin(board: BoardState): WinningLine | null {
     for (let c = 0; c < COLS; c++) {
       const p = board[r][c];
       if (
-        p !== null &&
+        (p === 1 || p === 2) &&
         p === board[r + 1][c] &&
         p === board[r + 2][c] &&
         p === board[r + 3][c]
@@ -71,7 +71,7 @@ export function checkWin(board: BoardState): WinningLine | null {
     for (let c = 0; c < COLS - 3; c++) {
       const p = board[r][c];
       if (
-        p !== null &&
+        (p === 1 || p === 2) &&
         p === board[r - 1][c + 1] &&
         p === board[r - 2][c + 2] &&
         p === board[r - 3][c + 3]
@@ -94,7 +94,7 @@ export function checkWin(board: BoardState): WinningLine | null {
     for (let c = 0; c < COLS - 3; c++) {
       const p = board[r][c];
       if (
-        p !== null &&
+        (p === 1 || p === 2) &&
         p === board[r + 1][c + 1] &&
         p === board[r + 2][c + 2] &&
         p === board[r + 3][c + 3]

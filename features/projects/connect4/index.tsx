@@ -1,21 +1,33 @@
 'use client';
-import React, { useState } from 'react';
-import { GamePhase, GameMode, Difficulty } from './types';
+import { useState } from 'react';
+import {
+  GamePhase,
+  GameMode,
+  Difficulty,
+  SeriesLength,
+  GameEvent,
+} from './types';
 import GameScreen from './ui/GameScreen';
 import MenuScreen from './ui/MenuScreen';
 import RulesScreen from './ui/RulesScreen';
 
 export default function App() {
   const [phase, setPhase] = useState<GamePhase>('menu');
-  const [mode, setMode] = useState<GameMode>('pvp');
+  const [mode, setMode] = useState<GameMode>('pve');
   const [difficulty, setDifficulty] = useState<Difficulty>('medium');
+  const [seriesLength, setSeriesLength] = useState<SeriesLength>(1);
+  const [gameEvent, setGameEvent] = useState<GameEvent>('classic');
 
   const handleStartGame = (
     selectedMode: GameMode,
     selectedDifficulty: Difficulty,
+    selectedSeriesLength: SeriesLength,
+    selectedGameEvent: GameEvent,
   ) => {
     setMode(selectedMode);
     setDifficulty(selectedDifficulty);
+    setSeriesLength(selectedSeriesLength);
+    setGameEvent(selectedGameEvent);
     setPhase('playing');
   };
 
@@ -34,6 +46,8 @@ export default function App() {
         <GameScreen
           mode={mode}
           difficulty={difficulty}
+          seriesLength={seriesLength}
+          gameEvent={gameEvent}
           onBackToMenu={() => setPhase('menu')}
         />
       )}
