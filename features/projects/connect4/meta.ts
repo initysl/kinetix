@@ -6,7 +6,7 @@ export const connect4Meta: ProjectRecord = {
   title: 'Connect4',
   eyebrow: 'Game',
   summary:
-    'A tactical, offline-first Connect Four championship board with smart computer AI levels, best-of match series, and active game modifiers.',
+    'A tactical game of connect four with smart computer AI levels, best-of match series, and active game modifiers.',
   description:
     'A highly polished, tactile, physical-style Connect Four tabletop arena. Features customizable best-of-series formats, smart depth-calculated computer opponents (using a local Minimax engine), complete keyboard accessibility, and dynamic event configurations including Rocky Obstacles, speed Blitz setups, and random Volcanic debris showers.',
   tags: ['Minimax AI', 'Interactive Loop', 'Tabletop Game'],

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import WhereToGoProject from '@/features/projects/where-to-go';
 import SideBar from '@/features/projects/sidebar';
-import Profile from '@/features/projects/profile';
 import Connect4 from '@/features/projects/connect4';
 import { getProjectBySlug } from '@/content/projects';
 
@@ -13,7 +12,6 @@ type ProjectPageProps = {
 const projectComponents = {
   'where-to-go': WhereToGoProject,
   sidebar: SideBar,
-  'profile-viewer': Profile,
   connect4: Connect4,
 } as const;
 
