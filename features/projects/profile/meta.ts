@@ -16,10 +16,6 @@ export const profileMeta: ProjectRecord = {
     src: '/projects/profile/blog.mp4',
     alt: 'Preview of the interactive morphing profile transition.',
   },
-  stats: [
-    { label: 'Surface', value: 'Mobile' },
-    { label: 'Focus', value: 'Dynamic Transitions' },
-    { label: 'Route', value: '/projects/profile-viewer' },
-  ],
+  stats: [{ label: 'Route', value: '/projects/profile-viewer' }],
   credit: 'https://youtube.com/shorts/s8TB6Dpq4jQ?si=NLuJOPo2ihJgVOYw',
 };

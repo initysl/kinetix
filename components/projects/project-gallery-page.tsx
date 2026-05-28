@@ -44,13 +44,13 @@ function ProjectPreview({ preview }: { preview: Preview }) {
 
 export function ProjectGalleryPage() {
   return (
-    <main className='min-h-screen bg-[#f3efe7] text-[#161410]'>
+    <main className='min-h-screen bg-[#f3efe7] text-[rgb(22,20,16)]'>
       <div className='mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 py-5 sm:px-6 lg:px-8 lg:py-8'>
         {/* HEADER */}
-        <header className='flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl sm:rounded-3xl border border-black/5 bg-white/65 px-4 py-3 sm:px-6 sm:py-4 backdrop-blur-md shadow-xs transition-all'>
+        <header className='flex items-center justify-between gap-4 rounded-2xl sm:rounded-3xl border border-black/5 bg-white/65 px-4 py-3 sm:px-6 sm:py-4 backdrop-blur-md shadow-xs transition-all'>
           {/* Logo & Text Block */}
-          <div className='flex items-center gap-3 w-full sm:w-auto'>
-            <div className='relative shrink-0 w-10 s-10 sm:w-12 sm:h-12'>
+          <div className='flex items-center gap-3 min-w-0'>
+            <div className='relative shrink-0 w-10 h-10 sm:w-12 sm:h-12'>
               <Image
                 src='/kinetix.svg'
                 width={48}
@@ -66,14 +66,14 @@ export function ProjectGalleryPage() {
                 Kinetix
               </h1>
               <p className='text-xs sm:text-sm text-black/60 truncate'>
-                Frontend Engineering Works
+                Frontend Eng Works
               </p>
             </div>
           </div>
 
           {/* Showcase Counter Badge */}
-          <span className='self-end sm:self-center shrink-0 rounded-full border border-black/10 bg-white px-3 py-1 text-xs sm:text-sm font-semibold text-black/70 shadow-sm'>
-            {projects.length} showcases
+          <span className='shrink-0 rounded-full border border-black/10 bg-white px-3 py-1 text-xs sm:text-sm font-semibold text-black/70 shadow-sm'>
+            {projects.length}
           </span>
         </header>
 
@@ -93,26 +93,24 @@ export function ProjectGalleryPage() {
                   stiffness: 200,
                   damping: 20,
                 }}
-                className='group relative flex items-center gap-4 rounded-3xl border border-black/10 bg-white px-5 py-4 duration-300 hover:border-black/20 transition-all hover:-translate-y-1  hover:shadow-md'
+                className='group relative flex items-center gap-4 rounded-3xl border border-black/10 bg-white px-5 py-4 duration-300 hover:border-black/20 transition-all hover:-translate-y-1 hover:shadow-md'
               >
-                {/* 1. Preview Image/Video Container */}
                 <div className='relative h-20 w-20 overflow-hidden rounded-2xl shrink-0 bg-slate-50 border border-slate-100/10'>
                   <ProjectPreview preview={project.preview} />
                 </div>
 
-                {/* 2. Metadata Content Column */}
                 <div className='flex-1 min-w-0'>
                   <h3 className='font-semibold text-neutral-800 transition-colors duration-200 mt-0.5'>
                     {project.title}
                   </h3>
-                  <p className='text-sm text-neutral-500  mt-0.5'>
+                  <p className='text-sm text-neutral-500 mt-0.5'>
                     {project.summary}
                   </p>
 
                   {project.credit && (
                     <p className='text-[10px] text-neutral-400 mt-1.5 font-mono uppercase tracking-wider truncate'>
                       UI Credit —{' '}
-                      <span className=' transition-colors'>
+                      <span className='transition-colors'>
                         {
                           project.credit
                             .replace(/^https?:\/\/(www\.)?/, '')
@@ -123,12 +121,11 @@ export function ProjectGalleryPage() {
                   )}
                 </div>
 
-                {/* 3. Redesigned Highly Polished Action Link Button */}
                 <div className='shrink-0 pl-2'>
                   <Link
                     href={href}
                     aria-label={`View details for ${project.title}`}
-                    className='relative flex items-center justify-center w-12 h-12 rounded-2xl border border-neutral-100  text-neutral-600  transition-all duration-300 active:scale-95 group/btn'
+                    className='relative flex items-center justify-center w-12 h-12 rounded-2xl border border-neutral-100 text-neutral-600 transition-all duration-300 active:scale-95 group/btn'
                   >
                     <ArrowUpRight
                       size={20}

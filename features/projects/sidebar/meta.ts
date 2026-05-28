@@ -6,20 +6,16 @@ export const sidebarMeta: ProjectRecord = {
   title: 'Sidebar',
   eyebrow: 'Sidebar transition',
   summary:
-    'A swipe-first card deck concept with stacked cards, immersive imagery, and tactile motion.',
+    'A fluid transition for a sidebar interface, utilizing spring-based motion to create a natural and engaging user experience.',
   description:
-    'An immersive card deck interface built around vertical swipe gestures, layered place cards, and a mobile-first detail surface.',
+    'A sidebar interface that smoothly transitions in and out of view using spring-based motion. The animation creates a natural and engaging user experience, with the sidebar sliding in from the left and fading in simultaneously. The transition is designed to be responsive and adaptable to different screen sizes, ensuring a consistent experience across devices.',
   tags: ['Motion', 'Cards'],
   accent: '#17342F',
   preview: {
     kind: 'video',
     src: '/projects/flowers/sidenav.mp4',
-    alt: 'Preview of the Flowers interface.',
+    alt: 'Preview of the sidebar transition animation.',
   },
-  stats: [
-    { label: 'Surface', value: 'Mobile' },
-    { label: 'Focus', value: 'Motion' },
-    { label: 'Route', value: '/projects/sidebar' },
-  ],
+  stats: [{ label: 'Route', value: '/projects/sidebar' }],
   credit: 'https://youtube.com/shorts/s8TB6Dpq4jQ?si=NLuJOPo2ihJgVOYw',
 };
