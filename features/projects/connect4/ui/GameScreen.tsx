@@ -635,7 +635,7 @@ export default function GameScreen({
             border-b-4 border-white/20 border-x-2 border-t-2 shadow-md transition-all cursor-pointer hover:scale-102 active:translate-y-px active:border-b-0
           '
         >
-          Restart Match
+          Restart
         </button>
       </header>
 
@@ -646,7 +646,7 @@ export default function GameScreen({
           className='w-full max-w-md bg-black/30 border-2 border-black/40 rounded-2xl py-2 px-4 mb-4 flex items-center justify-between text-xs font-bold text-slate-350 tracking-wide'
         >
           <div className='flex items-center gap-1.5'>
-            <span className='text-slate-400 uppercase'>Series Score:</span>
+            <span className='text-slate-400 uppercase'>Score:</span>
             <span className='bg-red-500 text-white px-2 py-0.5 rounded-md text-[11px] font-black'>
               {scores.scoreP1}
             </span>
@@ -696,7 +696,7 @@ export default function GameScreen({
                 Player 1 (Red)
               </span>
               <p className='text-xs font-extrabold font-sans uppercase text-slate-600'>
-                Human Challenger
+                Human
               </p>
             </div>
             <div>
