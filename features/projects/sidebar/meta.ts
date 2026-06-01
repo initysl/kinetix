@@ -5,8 +5,7 @@ export const sidebarMeta: ProjectRecord = {
   slug: 'sidebar',
   title: 'Sidebar',
   eyebrow: 'Sidebar transition',
-  summary:
-    'A fluid transition for a sidebar interface, utilizing spring-based motion to create a natural and engaging user experience.',
+  summary: 'A fluid transition for a sidebar interface.',
   description:
     'A sidebar interface that smoothly transitions in and out of view using spring-based motion. The animation creates a natural and engaging user experience, with the sidebar sliding in from the left and fading in simultaneously. The transition is designed to be responsive and adaptable to different screen sizes, ensuring a consistent experience across devices.',
   tags: ['Motion', 'Cards'],

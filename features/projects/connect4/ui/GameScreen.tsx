@@ -1051,7 +1051,7 @@ export default function GameScreen({
                 id='p2-label-mobile'
                 className='text-black font-black text-xs uppercase tracking-wider block opacity-70'
               >
-                {mode === 'pve' ? 'Computer (CPU)' : 'Player 2 (Yellow)'}
+                {mode === 'pve' ? 'Computer' : 'Player 2 (Yellow)'}
               </span>
               <p className='text-xs font-extrabold font-sans uppercase text-slate-600'>
                 {mode === 'pve' ? `AI (${difficulty})` : 'Human Guest'}
@@ -1116,7 +1116,7 @@ export default function GameScreen({
         className='w-full max-w-5xl mt-6 flex flex-col md:flex-row items-center justify-between gap-6 bg-white text-black rounded-[32px] p-5 shadow-xl relative z-20'
       >
         {/* Left Side: Controls Description & Key Commands */}
-        <div className='flex flex-col gap-1 text-center md:text-left'>
+        <div className='hidden lg:flex flex-col gap-1 text-center md:text-left'>
           <h3 className='font-black text-sm uppercase text-indigo-950 tracking-wider'>
             Match Information Center
           </h3>

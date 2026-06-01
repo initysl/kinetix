@@ -336,11 +336,6 @@ export default function MenuScreen({
             )}
           </div>
         </div>
-
-        {/* Footer label */}
-        <p className='text-[10px] sm:text-xs font-black text-slate-400 mt-8 tracking-wider uppercase'>
-          100% Offline Compatible
-        </p>
       </div>
     </div>
   );

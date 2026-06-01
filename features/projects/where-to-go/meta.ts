@@ -5,8 +5,7 @@ export const whereToGoProjectMeta: ProjectRecord = {
   slug: 'where-to-go',
   title: 'Where To Go',
   eyebrow: 'Travel Discovery',
-  summary:
-    'A swipe-first destination concept with stacked cards, immersive imagery, and tactile motion.',
+  summary: 'A swipe-first destination concept with stacked cards.',
   description:
     'An immersive travel discovery interface built around vertical swipe gestures, layered place cards, and a mobile-first detail surface.',
   tags: ['Motion', 'Cards'],

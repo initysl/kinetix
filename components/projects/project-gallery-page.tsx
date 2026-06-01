@@ -45,7 +45,7 @@ function ProjectPreview({ preview }: { preview: Preview }) {
 export function ProjectGalleryPage() {
   return (
     <main className='min-h-screen bg-[#f3efe7] text-[rgb(22,20,16)]'>
-      <div className='mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 py-5 sm:px-6 lg:px-8 lg:py-8'>
+      <div className='flex w-full flex-col gap-6 px-5 py-5 '>
         {/* HEADER */}
         <header className='flex items-center justify-between gap-4 rounded-2xl sm:rounded-3xl border border-black/5 bg-white/65 px-4 py-3 sm:px-6 sm:py-4 backdrop-blur-md shadow-xs transition-all'>
           {/* Logo & Text Block */}
@@ -93,7 +93,7 @@ export function ProjectGalleryPage() {
                   stiffness: 200,
                   damping: 20,
                 }}
-                className='group relative flex items-center gap-4 rounded-3xl border border-black/10 bg-white px-5 py-4 duration-300 hover:border-black/20 transition-all hover:-translate-y-1 hover:shadow-md'
+                className='group relative flex items-center gap-4 rounded-3xl border border-black/10 bg-white p-2 duration-300 hover:border-black/20 transition-all hover:-translate-y-1 hover:shadow-md'
               >
                 <div className='relative h-20 w-20 overflow-hidden rounded-2xl shrink-0 bg-slate-50 border border-slate-100/10'>
                   <ProjectPreview preview={project.preview} />
